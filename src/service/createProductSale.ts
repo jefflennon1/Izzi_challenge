@@ -1,5 +1,6 @@
 import { getRepository } from "typeorm";
 import Product from "../models/productModel";
+import saleModel from "../models/saleModel";
 
 interface Request{
   id: string;
@@ -23,8 +24,10 @@ export default class createProductSale{
         product.cost - discount;
       }
 
-      
-
+      const sale = getRepository(saleModel);
+      sale.create({
+        
+      })
 
       return product;
     }
