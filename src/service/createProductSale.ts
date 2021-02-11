@@ -6,7 +6,6 @@ interface Request{
   id: string;
   discount: number;
 }
-
 export default class createProductSale{
     async execute({id, discount }:Request):Promise<saleModel | undefined>{
       

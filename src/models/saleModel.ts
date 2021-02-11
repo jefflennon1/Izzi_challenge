@@ -8,7 +8,7 @@ export default class saleModel{
   id: string;
 
   @Column('total_cache')
-  totalCash: number;
+  totalCash: Float32Array;
 
   @ManyToMany(()=>Product)
   @JoinColumn({name: 'product_id'})
