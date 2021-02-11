@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
+import Product from './productModel';
 
 @Entity('sale')
 export default class saleModel{
@@ -8,5 +9,9 @@ export default class saleModel{
 
   @Column('total_cache')
   totalCash: number;
+
+  @ManyToMany(()=>Product)
+  @JoinColumn({name: 'product_id'})
+  product: Product;
   
 }

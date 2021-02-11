@@ -8,7 +8,7 @@ interface Request{
 }
 
 export default class createProductSale{
-    async execute({id, discount }:Request):Promise<Product | undefined>{
+    async execute({id, discount }:Request):Promise<saleModel | undefined>{
       
       const productRepository = getRepository(Product);
 
@@ -24,11 +24,13 @@ export default class createProductSale{
         product.cost - discount;
       }
 
-      const sale = getRepository(saleModel);
-      sale.create({
-        
+      const saleRepository = getRepository(saleModel);
+      const sale = await saleRepository.create({
+        totalCash: product.cost,
+        product: product,
       })
 
-      return product;
+      saleRepository.save(sale);
+      return sale;
     }
 }
