@@ -24,6 +24,31 @@ export class createTableSale1613086514008 implements MigrationInterface {
                 }
             ],
         }));
+        await queryRunner.createTable(new Table({
+            name: 'product',
+            columns: [
+                {
+                    name: 'product_id',
+                    type: 'varchar',
+                    isNullable: false,
+                    generationStrategy: 'uuid',
+                    default: 'uuid_generate_v4'
+                },
+                {
+                    name: 'name',
+                    type: 'varchar',
+                    isNullable: false,
+                },
+                {
+                    name: 'cost',
+                    type: 'integer',
+                    isNullable: false,
+                }
+            ]
+        }));
+
+
+
         
         await queryRunner.createForeignKey('sale', new TableForeignKey({
             name: 'SaleProduct',
@@ -37,6 +62,7 @@ export class createTableSale1613086514008 implements MigrationInterface {
 
     public async down(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.dropTable('sale');
+        await queryRunner.dropTable('product');
         await queryRunner.dropForeignKey('sale','SaleProduct');
     }
 
