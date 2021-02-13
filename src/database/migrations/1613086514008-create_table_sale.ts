@@ -1,4 +1,4 @@
-import {MigrationInterface, QueryRunner, Table, TableColumn} from "typeorm";
+import {MigrationInterface, QueryRunner, Table, TableColumn, TableForeignKey} from "typeorm";
 
 export class createTableSale1613086514008 implements MigrationInterface {
 
@@ -17,13 +17,27 @@ export class createTableSale1613086514008 implements MigrationInterface {
                     name: 'total_cache',
                     type: 'integer',
                     isNullable: false,
+                },
+                {
+                    name: 'product',
+                    type: 'string'
                 }
-            ]
+            ],
+        }));
         
+        await queryRunner.createForeignKey('sale', new TableForeignKey({
+            name: 'SaleProduct',
+            columnNames: ['product'],
+            referencedColumnNames: ['product_id'],
+            referencedTableName: 'product',
+            onDelete: 'SET NULL',
+            onUpdate: 'CASCADE',
         }))
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
+        await queryRunner.dropTable('sale');
+        await queryRunner.dropForeignKey('sale','SaleProduct');
     }
 
 }
