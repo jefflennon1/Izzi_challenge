@@ -1,17 +1,17 @@
 import { Column, Entity, JoinColumn, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
 import Product from './productModel';
 
-@Entity('sale')
+// @Entity('sale')
 export default class saleModel{
   
-  @PrimaryGeneratedColumn("uuid")
+  // @PrimaryGeneratedColumn("uuid")
   id: string;
 
-  @Column('total_cache')
-  totalCash: number;
+  // @Column('total_cache')
+  totalCash: BigInteger;
 
-  @ManyToMany(()=>Product)
-  @JoinColumn({name: 'product_id'})
+  // @ManyToMany(()=>Product)
+  // @JoinColumn({name: 'product_id'})
   product: Product;
   
 }

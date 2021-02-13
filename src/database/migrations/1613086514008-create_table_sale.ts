@@ -3,24 +3,26 @@ import {MigrationInterface, QueryRunner, Table, TableColumn, TableForeignKey} fr
 export class createTableSale1613086514008 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
+        await queryRunner.query('CREATE EXTENSION IF NOT EXISTS "uuid-ossp"');
         await queryRunner.createTable(new Table({
             name: 'sale',
             columns:[
                 {
                     name: 'id',
                     type: 'varchar',
-                    default: 'uuid_generate_v4()',
                     generationStrategy: 'uuid',
-                    isPrimary: true,
+                    // isPrimary: true,
+                    // isUnique: true,
+                    default: 'uuid_generate_v4()',
                 },
                 {
                     name: 'total_cache',
-                    type: 'integer',
+                    type: 'int',
                     isNullable: false,
                 },
                 {
                     name: 'product',
-                    type: 'string'
+                    type: 'varchar'
                 }
             ],
         }));
@@ -32,7 +34,8 @@ export class createTableSale1613086514008 implements MigrationInterface {
                     type: 'varchar',
                     isNullable: false,
                     generationStrategy: 'uuid',
-                    default: 'uuid_generate_v4'
+                    default: 'uuid_generate_v4()',
+                    isUnique: true,
                 },
                 {
                     name: 'name',
